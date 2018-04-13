@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybuild": "build-storybook -c .storybook -o .out"
+    "storybuild": "build-storybook -c .storybook -o docs"
   },
   "dependencies": {
     "@storybook/addon-notes": "^3.4.1",
