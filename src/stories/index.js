@@ -31,7 +31,7 @@ let mfkStore = [
 //
 // When the decorator is applied to a story, the story template
 // will be injected into the <story/> slot.
-const WrapperDecorator = () => (
+const VuetifyDecorator = () => (
   {
     template: `<div>
       <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
@@ -41,8 +41,33 @@ const WrapperDecorator = () => (
   }
 );
 
-storiesOf('MfkInput', module)
-  .addDecorator(WrapperDecorator)
+const BootstrapDecorator = () => (
+  {
+    template: `<div>
+      <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+      <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+      <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+      <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+      <story/>
+    </div>`
+  }
+);
+
+storiesOf('MfkInput Plain', module)
+  .add('Simple inline MFK',withMarkdownNotes(`
+    This is the most basic example of an MfkInput, using vue-strap.
+  `)(() => ({
+    component: { MfkInput },
+    data: function() {
+      return {
+        mfk: "123-22"
+      };
+    },
+    template: `<mfk-input style="display:inline-block" v-model="mfk"></mfk-input>`
+  })));
+
+storiesOf('MfkInput Vuetify', module)
+  .addDecorator(VuetifyDecorator)
   .add('Simple inline MFK',withMarkdownNotes(`
   This is the most basic example of an MfkInput.
       `)(() => ({
@@ -88,4 +113,18 @@ be updated through the add & remove method bindings.
         }
       },
       template: `<mfk-input style="display:inline-block" v-model="mfk" :favorites="favorites" @favorite-mfk-added="add" @favorite-mfk-removed="remove"></mfk-input>`
+  })));
+
+storiesOf('MfkInput Bootstrap', module)
+  .addDecorator(BootstrapDecorator)
+  .add('Simple inline MFK',withMarkdownNotes(`
+    This is the most basic example of an MfkInput, using vue-strap.
+  `)(() => ({
+    component: { MfkInput },
+    data: function() {
+      return {
+        mfk: "123-22"
+      };
+    },
+    template: `<mfk-input style="display:inline-block" v-model="mfk"></mfk-input>`
   })));
